@@ -90,7 +90,7 @@ export const PlayerContextProvider = forwardRef<
     const [skipping, setSkipping] = useState(false)
     const [currentTime, setCurrentTime] = useState(0)
     const [meta, setMeta] = useState<playerMetaData>(defaultTime)
-    const [speed, setSpeed] = useLocalStorageState('ph-rrweb-player-speed', 1)
+    const [speed, setSpeed] = useLocalStorageState('ph-rrweb-player-speed', { defaultValue: 1 })
 
     const play = () => {
         setPlaying(true)
@@ -132,13 +132,13 @@ export const PlayerContextProvider = forwardRef<
 
     const setCurrentTimeDebounced = useDebouncedCallback(setCurrentTime, 10, {
         maxWait: 100
-    }).callback
+    });
 
     const onPlayerTimeChangeDebounced = useDebouncedCallback(
         onPlayerTimeChange || NOOP,
         300,
         { maxWait: 1000 }
-    ).callback
+    );
 
     useEffect(() => {
         if (frame) {
